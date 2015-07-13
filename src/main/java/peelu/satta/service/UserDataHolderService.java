@@ -1,6 +1,5 @@
 package peelu.satta.service;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import peelu.satta.model.FantasyScoreCard;

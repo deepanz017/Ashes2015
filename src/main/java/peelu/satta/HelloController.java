@@ -3,9 +3,7 @@ package peelu.satta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import peelu.satta.model.*;
 import peelu.satta.service.APIHelper;
@@ -65,6 +63,13 @@ public class HelloController {
     }
 
 
+    @RequestMapping(value = "/userHomePage", method = RequestMethod.GET)
+    @ResponseBody
+    String login(@RequestParam String userName){
+
+        return "Peelu";
+    }
+
 
     @RequestMapping(value = "/players", method = RequestMethod.GET)
     public String players(ModelMap model){
@@ -78,6 +83,11 @@ public class HelloController {
 
     }
 
-    
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String hello(ModelMap model){
+        return "hello";
+    }
+
+
 
 }

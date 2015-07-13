@@ -10,8 +10,8 @@ import java.util.List;
 /**
  * Created by dabroal on 11/07/15.
  */
-@Service
-public class UserService {
+
+public interface UserService {
 
 //    private List<UserScore> userScoreList;
 //
