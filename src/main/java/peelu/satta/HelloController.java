@@ -6,14 +6,17 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import peelu.satta.model.*;
+import peelu.satta.persistence.entity.User;
 import peelu.satta.service.APIHelper;
 import peelu.satta.service.PlayerService;
 import peelu.satta.service.ScoreCardService;
 import peelu.satta.service.UserDataHolderService;
+import peelu.satta.service.impl.SattaPointsService;
 import peelu.satta.util.MatchUtil;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/")
@@ -32,7 +35,7 @@ public class HelloController {
     ScoreCardService scoreCardService;
 
     @Autowired
-    UserDataHolderService userDataHolderService;
+    SattaPointsService sattaPointsService;
 
     private String matchTitle;
     private String jsonString;
@@ -42,7 +45,7 @@ public class HelloController {
     public String scoreCard(ModelMap model){
         try {
             MatchScoreCard scoreCard = scoreCardService.getMatchScoreCard();
-            PlayersInMatch playersInMatch = playerService.getPlayersInMatch(37525);
+            PlayersInMatch playersInMatch = playerService.getPlayersInMatch();
             FantasyScoreCard fantasyScoreCard = scoreCardService.getFantasyScoreCard(scoreCard, playersInMatch);
 
 
@@ -63,18 +66,10 @@ public class HelloController {
     }
 
 
-    @RequestMapping(value = "/userHomePage", method = RequestMethod.GET)
-    @ResponseBody
-    String login(@RequestParam String userName){
-
-        return "Peelu";
-    }
-
-
     @RequestMapping(value = "/players", method = RequestMethod.GET)
     public String players(ModelMap model){
         try {
-            PlayersInMatch playersInMatch = playerService.getPlayersInMatch(37525);
+            PlayersInMatch playersInMatch = playerService.getPlayersInMatch();
             model.addAttribute("players", playersInMatch.toString());
         } catch (IOException e) {
             model.addAttribute("players", "Oops, error!!!");
@@ -83,10 +78,14 @@ public class HelloController {
 
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String hello(ModelMap model){
-        return "hello";
+    @RequestMapping(value = {"/scorecard/liveSattaScore", "/"}, method = RequestMethod.GET)
+    public String sattaScoreCard(ModelMap model) throws IOException {
+        SattaTeamWisecoreCard liveSattaScore = sattaPointsService.getLiveSattaScore();
+        model.put("liveSattaScore", liveSattaScore);
+        return "liveSattaScore";
+
     }
+
 
 
 

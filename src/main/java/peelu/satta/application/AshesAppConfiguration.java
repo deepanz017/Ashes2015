@@ -10,7 +10,7 @@ import java.io.IOException;
 
 @Configuration
 @ComponentScan("peelu.satta")
-@Import({PersistenceConfiguration.class, WebConfiguration.class})
+@Import({PersistenceConfiguration.class, WebConfiguration.class, SocialContext.class, SecurityContext.class})
 public class AshesAppConfiguration {
     private static final String DEFAULT_ENV = "uat";
     private static final String ENV_KEY = "env";

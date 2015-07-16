@@ -1,17 +1,14 @@
 package peelu.satta.service;
 
-import org.springframework.stereotype.Service;
-import peelu.satta.model.PlayerScore;
-import peelu.satta.model.UserScore;
 
-import java.util.ArrayList;
-import java.util.List;
-
-/**
- * Created by dabroal on 11/07/15.
- */
+import peelu.satta.frontend.forms.RegistrationForm;
+import peelu.satta.persistence.entity.User;
+import peelu.satta.service.exceptions.DuplicateEmailException;
 
 public interface UserService {
+    User registerNewUserAccount(RegistrationForm userAccountData) throws DuplicateEmailException;
+}
+
 
 //    private List<UserScore> userScoreList;
 //
@@ -23,4 +20,4 @@ public interface UserService {
 //    public void setUserScoreList() {
 //
 //    }
-}
+//}

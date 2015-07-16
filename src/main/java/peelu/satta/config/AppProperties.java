@@ -18,6 +18,10 @@ public class AppProperties {
     private final static String DATABASE_DRIVER = "database.driver";
     private final static String DATABASE_PASSWORD = "database.password";
 
+    private final static String FACEBOOK_APP_ID_KEY = "facebook.app.id";
+    private final static String FACEBOOK_SECRET = "facebook.app.secret" ;
+
+    private final static String CURRENT_MATCH="current.match.id";
     private Properties properties = new Properties();
     String environment;
 
@@ -47,5 +51,10 @@ public class AppProperties {
 
     public String getDatabasePassword() { return properties.getProperty(DATABASE_PASSWORD);}
 
+    public String getFacebookAppId() { return properties.getProperty(FACEBOOK_APP_ID_KEY); }
+
+    public String getFacebookSecret() { return properties.getProperty(FACEBOOK_SECRET);}
+
+    public Long getCurrentMatchId() { return (Long.valueOf( properties.getProperty(CURRENT_MATCH)).longValue());}
 
 }

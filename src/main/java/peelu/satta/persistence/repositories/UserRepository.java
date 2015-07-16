@@ -4,9 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import peelu.satta.persistence.entity.User;
 
 
-/**
- * Created by dabroal on 12/07/15.
- */
-public interface UserRepository extends JpaRepository<User, Long> {
 
+public interface UserRepository extends JpaRepository<User, Long> {
+    public User findByEmail(String email);
+    public User findById(Long id);
 }

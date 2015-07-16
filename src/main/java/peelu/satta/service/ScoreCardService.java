@@ -2,6 +2,7 @@ package peelu.satta.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import peelu.satta.config.AppProperties;
 import peelu.satta.model.*;
 import peelu.satta.util.MatchUtil;
 
@@ -21,11 +22,17 @@ public class ScoreCardService {
     @Autowired
     MatchUtil matchUtil;
 
-    private static String SCORECARD_URL = "http://apinew.cricket.com.au/scorecards/full/1448/37525?format=json";
+    @Autowired
+    AppProperties appProperties;
+
+    @Autowired
+    PlayerService playerService;
+
+    private static String SCORECARD_URL = "http://apinew.cricket.com.au/scorecards/full/1448/";
 
     public MatchScoreCard getMatchScoreCard() throws IOException {
 
-        String apiResponse = apiHelper.responsefromAPI(SCORECARD_URL);
+        String apiResponse = apiHelper.responsefromAPI(getApiUrl(appProperties.getCurrentMatchId()));
 
         return matchUtil.getMatchScoreCardFromApiResponse(apiResponse);
     }
@@ -48,6 +55,16 @@ public class ScoreCardService {
         return new FantasyScoreCard(playerScores);
 
 
+    }
+
+    public FantasyScoreCard getLiveFantasyScoreCard() throws IOException {
+        MatchScoreCard liveMatchScoreCard = getMatchScoreCard();
+        PlayersInMatch playersInMatch = playerService.getPlayersInMatch();
+        return getFantasyScoreCard(liveMatchScoreCard, playersInMatch);
+    }
+
+    private String getApiUrl(Long matchId){
+        return SCORECARD_URL + String.valueOf(matchId) + "?format=json";
     }
 
 
