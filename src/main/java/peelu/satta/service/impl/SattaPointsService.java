@@ -63,6 +63,6 @@ public class SattaPointsService {
             playerScores.add(liveFantasyScoreCard.getPlayerScores().get(playerId));
         }
         satteriScore += 0.5 * liveFantasyScoreCard.getPlayerScores().get(pick.getPlayerId1().intValue()).getScore();
-        return new SatteriPerformance(playerScores, satteriScore, liveFantasyScoreCard.getPlayerScores().get(pick.getPlayerId1()));
+        return new SatteriPerformance(playerScores, satteriScore, liveFantasyScoreCard.getPlayerScores().get(pick.getPlayerId1().intValue()));
     }
 }
